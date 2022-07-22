@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 export const NavBrandArea = styled.a`
   text-decoration: none;
@@ -80,7 +79,7 @@ export const NavItems = styled.div`
   }
 `;
 
-export const NavLink = styled(Link)`
+export const NavLink = styled.a`
   text-decoration: none;
   color: #000;
   padding: 0.5em;

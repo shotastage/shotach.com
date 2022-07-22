@@ -4,10 +4,11 @@ import { ApiClient } from 'mini-apiclient';
 import styled from 'styled-components';
 import Stories from 'react-insta-stories';
 import Modal from 'react-modal';
-import SvgIcon from '../assets/close_button.svg';
-import { useDimension } from '../hooks';
-import { API_KEYS } from '../env-values';
-import { Image } from '../components/Image';
+import SvgIcon from '../../assets/close_button.svg';
+import { useDimension } from '../../hooks';
+import { API_KEYS } from '../../env-values';
+import { Image } from '../../components/Image';
+
 
 const Story = styled.div`
   display: flex;

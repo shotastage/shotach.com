@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, CardSquare, CardIcon, Heading3, Heading4, Flex, Spacer } from '../../components';
+import { Box, CardSquare, CardIcon, Heading3, Heading4, Flex, Spacer } from '../../../components';
 
 export const WorksShotachCom = () => {
   return (

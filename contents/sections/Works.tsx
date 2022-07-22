@@ -15,8 +15,8 @@ import {
   Heading2,
   RoundButton,
   SHModal,
-} from '../components';
-import HorizontalNoscroll from '../styles/NoneScrollBar';
+} from '../../components';
+import HorizontalNoscroll from '../../styles/NoneScrollBar';
 
 const WorksInception = React.lazy(() =>
   import('./contents').then((module) => ({

@@ -7,7 +7,7 @@ import {
   CardBody,
   CardHeading,
   CardDescription,
-} from '../components';
+} from '../../components';
 
 export const Writings = () => {
   return (

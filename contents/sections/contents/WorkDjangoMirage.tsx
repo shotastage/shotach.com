@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Box, Image, Heading3, Heading4, ModalText, Flex, Button } from '../../components';
+import { Box, Image, Heading3, Heading4, ModalText, Flex, Button } from '../../../components';
 import WorkDjangoMirageContent from './WorkDjangoMirageContent';
 
 const ModalImage = styled.img.attrs((props) => ({

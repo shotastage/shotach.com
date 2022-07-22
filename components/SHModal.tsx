@@ -3,7 +3,7 @@ import { useDimension } from '../hooks';
 import styled from 'styled-components';
 import Modal from 'react-modal';
 import { Flex, Spacer } from '../components';
-import { ReactComponent as SvgIcon } from '../assets/close_button.svg';
+import SvgIcon from '../assets/close_button.svg';
 
 const ModalIconObjElm = styled(SvgIcon)`
   width: 18px;

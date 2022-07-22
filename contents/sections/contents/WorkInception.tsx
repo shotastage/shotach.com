@@ -9,7 +9,7 @@ import {
   Heading4,
   Flex,
   Spacer,
-} from '../../components';
+} from '../../../components';
 
 const ModalImage = styled.img.attrs((props) => ({
   width: props.width || '100%',

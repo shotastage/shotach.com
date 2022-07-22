@@ -11,7 +11,7 @@ import {
   Heading5,
   Flex,
   Spacer,
-} from '../../components';
+} from '../../../components';
 import { AIMusicContent, BgDescript, CsDescript, TechDescript } from './WorkAIMusicContent';
 
 // Componets

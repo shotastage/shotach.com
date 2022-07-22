@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Container, Grid, GridGlobal, CardIcon, Heading2, Box } from '../components';
+import { Container, Grid, GridGlobal, CardIcon, Heading2, Box } from '../../components';
 
 const SocialButtonBase = styled.button`
   background-color: transparent;

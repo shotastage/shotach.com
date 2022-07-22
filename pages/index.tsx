@@ -1,18 +1,84 @@
 import type { NextPage } from 'next';
+import React, { useEffect, useState, Suspense } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import { Flex, Navbar, Heading, Image, Footer, FooterCopyright, SHModal } from '../components';
 import { Avator, Name, UserName } from '../components/AppComponent';
 import { TopBanner } from '../components/TopPopup';
 
-import { StorySection, Works, Writings, SkillsSection, SocialSection } from '../sections';
+import { StorySection, Works, Writings, SkillsSection, SocialSection } from '../contents/sections';
 
 import { BizCard, BizCardButton, BizDepartment } from '../contents/BizCard';
 
 import { ApiClient } from 'mini-apiclient';
 import { API_KEYS } from '../env-values';
 
+import { BizCardDetail } from '../contents/BizCard';
+
+
+
+/* eslint react/display-name: 0 */
+const MemorizedComponents = React.memo(() => {
+  const { t } = useTranslation();
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <React.Fragment>
+      <Navbar>@bout shota</Navbar>
+      <StorySection />
+      <Heading style={{ display: 'flex', justifyContent: 'center' }}>
+        <Flex>
+          <BizCard onClick={() => setIsOpen(true)}>
+            <Image
+              imgSrc='https://pbs.twimg.com/profile_images/1414945557999665161/W_ccWI58_400x400.jpg'
+              webPSrc='https://images.microcms-assets.io/assets/fdaf42be86754887af86a7af30ad514d/b96412c26fe9490296ad05db23a692e4/IMG_0086.webp'
+              alt='avator image'
+              imgComponent={Avator}
+            />
+            <Flex flexDirection='column' alignItems='flex-start' marginLeft='2em'>
+              <Flex flexDirection='column' alignItems='flex-start'>
+                <BizDepartment>{t('bizCard.department')}</BizDepartment>
+                <Name>Shota Shimazu</Name>
+                <UserName>@shotastage</UserName>
+              </Flex>
+              <BizCardButton onClick={() => setIsOpen(true)}>
+                {window.ontouchstart !== undefined && 0 < window.navigator.maxTouchPoints
+                  ? t('bizCard.touch')
+                  : t('bizCard.click')}
+              </BizCardButton>
+            </Flex>
+          </BizCard>
+          <SHModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+            <BizCardDetail />
+          </SHModal>
+        </Flex>
+      </Heading>
+      <Works />
+      <Writings />
+      <SkillsSection />
+      <SocialSection />
+      <Footer>
+        <FooterCopyright />
+      </Footer>
+    </React.Fragment>
+  );
+});
+
 const Home: NextPage = () => {
+
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    ApiClient.GET('https://shota-folio.microcms.io/api/v1/main_contents', [
+      ['X-MICROCMS-API-KEY', API_KEYS.microCMSKey],
+    ]).then((data) => {
+      setMessage(Object(data).contents);
+    });
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -33,60 +99,10 @@ const Home: NextPage = () => {
         <title>@shotastage</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">shotach.com!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+      <React.Fragment>
+        {message !== '' && <TopBanner>{message}</TopBanner>}
+        <MemorizedComponents />
+      </React.Fragment>
     </div>
   )
 }
