@@ -12,6 +12,7 @@ export async function getArticles(): Promise<Article> {
       headers: {
         "X-MICROCMS-API-KEY": `${process.env.API_KEY}`,
       },
+      next: { revalidate: 3600 },
     });
 
     if (!res.ok) {
@@ -45,6 +46,7 @@ export async function getArticleDetail(id: string): Promise<ArticleContent> {
         headers: {
           "X-MICROCMS-API-KEY": `${process.env.API_KEY}`,
         },
+        next: { revalidate: 3600 },
       }
     );
 

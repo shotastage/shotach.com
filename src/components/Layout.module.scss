@@ -48,7 +48,7 @@
 
 @for $i from 1 through 4 {
   .Col#{$i} {
-    width: 100% / $i;
+    width: calc(100% / #{$i});
 
     @media screen and (max-width: 1190px) {
       width: 100%;
