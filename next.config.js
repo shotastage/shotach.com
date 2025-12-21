@@ -3,15 +3,19 @@ const path = require('path');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
-  eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    ignoreDuringBuilds: true,
-  },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')]
   },
+  // Turbopack configuration for Next.js 16
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
+  },
+  // Keep webpack config for webpack mode fallback
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
@@ -22,7 +26,20 @@ const nextConfig = {
     return config
   },
   images: {
-    domains: ['media.graphassets.com', 'firebasestorage.googleapis.com', 'images.microcms-assets.io'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'media.graphassets.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'firebasestorage.googleapis.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.microcms-assets.io',
+      },
+    ],
   },
   output: "export"
 }
