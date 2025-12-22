@@ -56,8 +56,14 @@ function capitalizeFirstLetter(str: string): string {
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
-  const articlesData = await getArticleDetail(params.slug);
-  const content: Array<ArticleContent> = await Promise.all([articlesData]);
+  const articlesData = await getArticles();
+  const article = articlesData.contents.find((article: ArticleContent) => article.id === params.slug);
+
+  if (!article) {
+    return <div>Article not found</div>;
+  }
+
+  const content: Array<ArticleContent> = [article];
 
   return (
     <div>
